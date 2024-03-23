@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
   createPurchaseLog,
-  fetchPurchaseLog,
+  fetchPurchaseLogs,
   showPurchaseLog,
 } from "../Controller/purchase-log.controller.js";
 
 const router = Router();
 
-router.get("/", fetchPurchaseLog);
+router.get("/", fetchPurchaseLogs);
 router.get("/:id", showPurchaseLog);
 router.post("/", createPurchaseLog);
 
