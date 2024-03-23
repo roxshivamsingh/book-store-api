@@ -1,25 +1,16 @@
 import prisma from "../DB/db.config.js";
 
 export const fetchPurchaseLogs = async (req, res) => {
-  const data = await prisma.PurchaseHistory.findMany({
-    include: {
-      user: true,
-      post: {
-        include: {
-          user: true,
-        },
-      },
-    },
-  });
+  const data = await prisma.PurchaseHistory.findMany();
   return res.json({ status: 200, data });
 };
 
 export const createPurchaseLog = async (req, res) => {
   const { id, bookId, userId, purchaseDate, price, quantity } = req.body;
 
-  await prisma.post.update({
+  await prisma.PurchaseHistory.update({
     where: {
-      id: Number(post_id),
+      id: Number(id),
     },
     data: {
       comment_count: {
@@ -49,11 +40,11 @@ export const createPurchaseLog = async (req, res) => {
 // * Show user
 export const showPurchaseLog = async (req, res) => {
   const purchaseLogId = req.params.id;
-  const post = await prisma.comment.findFirst({
+  const data = await prisma.PurchaseHistory.findFirst({
     where: {
       id: Number(purchaseLogId),
     },
   });
 
-  return res.json({ status: 200, data: post });
+  return res.json({ status: 200, data });
 };

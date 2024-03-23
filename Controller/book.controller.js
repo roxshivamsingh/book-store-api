@@ -13,17 +13,7 @@ export const fetchBooks = async (req, res) => {
   const posts = await prisma.Book.findMany({
     skip: skip,
     take: limit,
-    include: {
-      comment: {
-        include: {
-          user: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
-    },
+
     orderBy: {
       id: "desc",
     },
