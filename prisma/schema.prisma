@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  content     String?
+  descroption String
+  authorId    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // @@index([authorId], map: "book_authorId_fkey")
+}
+
+model PurchaseHistory {
+  id           Int      @id @default(autoincrement())
+  bookId       BigInt
+  userId       BigInt
+  purchaseDate DateTime
+  price        BigInt
+  quantity     BigInt
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  role  String?
+  // logs  purchase_logs?
+}
